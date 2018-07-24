@@ -1,8 +1,14 @@
 class hero():
+    '''
+    Note yet implemented, intended as parent class for an individual hero
+    '''
     def __init__(self, clip_size, reload_time, shot_damage, shot_time, ability_damage, ability_cooldown):
         pass
 
 class soldier():
+    '''
+    Soldier 76 implementation    
+    '''
     CLIP_SIZE = 25
     RELOAD_TIME = 1.5
     SHOT_DAMAGE = 19
@@ -113,18 +119,19 @@ class hanzo():
         self.ability_cd -= self.tick_rate
         return self.state.pop(0)
 
-SIM_LENGTH = 45
-SIM_RATE = 0.001
+SIM_LENGTH = 45 #time in S to simulate
+SIM_RATE = 0.001 #increment rate for simulation
 
-fh = open(r'd:\simdata.csv','w')
+# Writing to a file for now
+fh = open(r'simdata.csv','w')
 
-time = 0
-s = soldier(tick_rate = SIM_RATE)
-h = hanzo(tick_rate = SIM_RATE)
+time = 0 #initialize time to 0
+s = soldier(tick_rate = SIM_RATE) #create a soldier
+h = hanzo(tick_rate = SIM_RATE) #create a hanzo
 fh.write("{},{},{},{},{},{},{}\n".format("TIME","SOLDIER_ACTION","SOLDIER_DAMAGE","SOLDIER_DAMAGE_CUM","HANZO_ACTION","HANZO_DAMAGE","HANZO_DAMAGE_CUM"))
 s_cum_dam = 0
 h_cum_dam = 0
-while time < SIM_LENGTH:
+while time < SIM_LENGTH:  #run sim
     s_act, s_dam = s.act()
     h_act, h_dam = h.act()
     s_cum_dam += s_dam
